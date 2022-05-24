@@ -1,0 +1,36 @@
+import java.util.*;
+import java.io.*;
+
+
+public class Main
+{
+    public static void main(String args[]) throws IOException
+    {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(in.readLine());
+
+        int[] order = new int[8];
+        int[] ascending = {1,2,3,4,5,6,7,8};
+        int[] descending = {8,7,6,5,4,3,2,1};
+
+        boolean isAscending = true;
+        boolean isDescending = true;
+
+        for(int nIndex = 0; nIndex < 8; nIndex++){
+            order[nIndex] = Integer.parseInt(st.nextToken());
+
+            if(order[nIndex] != ascending[nIndex])
+                isAscending = false;
+
+            if(order[nIndex] != descending[nIndex])
+                isDescending = false;
+        }
+
+        if(isAscending)
+            System.out.println("ascending");
+        else if(isDescending)
+            System.out.println("descending");
+        else
+            System.out.println("mixed");
+    }
+}
