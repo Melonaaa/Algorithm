@@ -1,0 +1,42 @@
+import java.util.*;
+
+class Solution {
+    public int[] solution(String[] id_list, String[] report, int k) {
+        int[] answer = new int[id_list.length];
+        
+        // 1. 중복 제거
+        HashSet<String> reportSet = new HashSet<String>();
+        for(String rep : report) reportSet.add(rep);
+        
+        // 2. notifyListHash 만들기
+        HashMap<String, ArrayList<String>> notifyListHash = new HashMap<String, ArrayList<String>>();
+        for(String rep : reportSet){
+            String[] splits = rep.split("\\s+");
+            String reporter = splits[0];
+            String reportee = splits[1];
+            
+            ArrayList<String> reporterList = notifyListHash.getOrDefault(reportee, null);
+            if(reporterList == null) reporterList = new ArrayList<>();
+            
+            reporterList.add(reporter);
+            notifyListHash.put(reportee, reporterList);
+        }
+        
+        // 3. notifyListHash 기반으로 reportHash 만들기
+        HashMap<String, Integer> reporterHash = new HashMap<>();
+        for(ArrayList<String> notifyList : notifyListHash.values()){
+            if(notifyList.size() >= k){
+                for(String reporter : notifyList){
+                    reporterHash.put(reporter, reporterHash.getOrDefault(reporter, 0) + 1);
+                }
+            }
+        }
+        
+        // 4. reportHash 정보를 answer에 담는다.
+        for(int nIndex = 0; nIndex < id_list.length; nIndex++){
+            answer[nIndex] = reporterHash.getOrDefault(id_list[nIndex], 0);
+        }
+        
+        return answer;
+    }
+}
