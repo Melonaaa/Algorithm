@@ -1,0 +1,29 @@
+import java.util.*;
+
+class Solution {
+    public int[] solution(int[] lottos, int[] win_nums) {
+        int matchCnt = 0; // 0이 아닌 숫자 중에 당첨 번호와 일치하는 개수
+        int zeroCnt = 0; // 0의 개수
+        
+        // 1. 0이 아닌 숫자 중에 당첨 번호와 일치하는 개수 = 최저 순위
+        // 2. 0은 당첨 번호로 변경이 가능하기 때문에, 최고 순위 = matchCnt + zeroCnt가 된다.
+        for(int l : lottos){
+            if(l == 0) zeroCnt++;
+            else{
+                for(int w : win_nums){
+                    if(l == w){
+                        matchCnt++;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        int min = matchCnt;
+        int max = matchCnt + zeroCnt;
+        
+        int[] answer = {Math.min(7-max, 6), Math.min(7-min, 6)};
+        
+        return answer;
+    }
+}
