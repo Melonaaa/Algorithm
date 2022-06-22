@@ -1,0 +1,70 @@
+import java.util.*;
+import java.io.*;
+
+
+public class Main
+{
+    static int nBlock;
+    static ArrayList<Integer> nArrObstacle = new ArrayList<Integer>();
+    static int[] dx = {0, 0, -1, 1};
+    static int[] dy = {-1, 1, 0, 0};
+    static int nObstacle;
+
+    public static void main(String args[]) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int n = Integer.parseInt(st.nextToken());
+
+        int[][] blocks = new int[n][n];
+        boolean[][] isChecked = new boolean[n][n];
+        
+        for(int row = 0; row < n; row++)
+        {
+            st = new StringTokenizer(br.readLine());
+            String line = st.nextToken();
+            for(int col = 0; col < n; col++)
+            {
+                blocks[row][col] = line.charAt(col) - 48;
+            }
+        }
+
+        for(int row = 0; row < n; row++)
+        {
+            for(int col = 0; col < n; col++)
+            {
+                if(blocks[row][col] == 1 && isChecked[row][col] != true)
+                {
+                    nBlock++;
+                    nObstacle = 1;
+                    isChecked[row][col] = true;
+                    dfs(row, col, blocks, isChecked);
+                    nArrObstacle.add(nObstacle);
+                }
+            }
+        }
+
+        System.out.println(nBlock);
+        
+        Collections.sort(nArrObstacle);
+
+        for(int obstacle : nArrObstacle)
+            System.out.println(obstacle);
+    }
+
+    static void dfs(int r, int c, int[][] b, boolean[][] ck)
+    {
+        for(int dir = 0; dir < 4; dir++){
+            int nr = r + dx[dir];
+            int nc = c + dy[dir];
+            if(nr >= 0 && nr < b.length && nc >= 0 && nc < b.length){
+                if(b[nr][nc] == 1 && ck[nr][nc] != true){
+                    nObstacle++;
+                    ck[nr][nc] = true;
+                    dfs(nr, nc, b, ck);
+                }
+            }
+        }
+    }
+}
