@@ -1,0 +1,15 @@
+class Solution {
+    public int solution(String s) {
+        int answer = 0;
+        
+        String[] numbers = {"zero", "one", "two", "three", "four", 
+                            "five", "six", "seven", "eight", "nine"};
+        
+        for(int nIndex = 0; nIndex < numbers.length; nIndex++){
+            String number = numbers[nIndex];
+            s = s.replaceAll(number, Integer.toString(nIndex));
+        }
+        answer = Integer.parseInt(s);
+        return answer;
+    }
+}
