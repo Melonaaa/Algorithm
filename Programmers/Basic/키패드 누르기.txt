@@ -1,0 +1,35 @@
+String solution(int[] numbers, String hand) {
+    StringBuilder sb = new StringBuilder();
+    int leftIndex = 10;
+    int rightIndex = 12;
+
+    for(int number : numbers){
+        if(number == 1 || number == 4 || number == 7){
+            leftIndex = number;
+            sb.append("L");
+        }else if(number == 3 || number == 6 || number == 9){
+            rightIndex = number;
+            sb.append("R");
+        }else{
+            int leftDist = getDistance(leftIndex, number);
+            int rightDist = getDistance(rightIndex, number);
+
+            if(leftDist < rightDist){
+                leftIndex = number;
+                sb.append("L");
+            }else if(leftDist > rightDist){
+                rightIndex = number;
+                sb.append("R");
+            }else{
+                if(hand.equals("left")){
+                    leftIndex = number;
+                    sb.append("L");
+                }else{
+                    rightIndex = number;
+                    sb.append("R");
+                }
+            }
+        }
+    }
+    return sb.toString();
+}
