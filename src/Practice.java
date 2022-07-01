@@ -1,62 +1,40 @@
+import java.util.Stack;
+
 public class Practice {
     public static void main(String[] args) {
         Practice p = new Practice();
 
-        int[] numbers = {1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5};
-        int[] numbers2 = {7, 0, 8, 2, 8, 3, 1, 5, 7, 6, 2};
+        int[][] board = {{0,0,0,0,0}, {0,0,1,0,3}, {0,2,5,0,1}, {4,2,4,4,2}, {3,5,1,3,1}};
+        int[] moves = {1,5,3,5,1,2,1,4};
 
-        System.out.println(p.solution(numbers, "right"));
-        System.out.println(p.solution(numbers2, "left"));
+        System.out.println(p.solution(board, moves));
     }
 
-    String solution(int[] numbers, String hand) {
-        StringBuilder sb = new StringBuilder();
-        int leftIndex = 10;
-        int rightIndex = 12;
+    public int solution(int[][] board, int[] moves) {
+        int answer = 0;
 
-        for(int number : numbers){
-            if(number == 1 || number == 4 || number == 7){
-                leftIndex = number;
-                sb.append("L");
-            }else if(number == 3 || number == 6 || number == 9){
-                rightIndex = number;
-                sb.append("R");
-            }else{
-                int leftDist = getDistance(leftIndex, number);
-                int rightDist = getDistance(rightIndex, number);
+        Stack<Integer> basket = new Stack<>();
 
-                if(leftDist < rightDist){
-                    leftIndex = number;
-                    sb.append("L");
-                }else if(leftDist > rightDist){
-                    rightIndex = number;
-                    sb.append("R");
-                }else{
-                    if(hand.equals("left")){
-                        leftIndex = number;
-                        sb.append("L");
+        for(int move : moves){
+            move -= 1;
+            for(int i = 0; i < board.length; i++){
+                if(board[i][move] != 0){
+                    if(basket.isEmpty()){
+                        basket.add(board[i][move]);
                     }else{
-                        rightIndex = number;
-                        sb.append("R");
+                        if(basket.peek() == board[i][move]){
+                            basket.pop();
+                            answer += 2;
+                        }else{
+                            basket.add(board[i][move]);
+                        }
                     }
+                    board[i][move] = 0;
+                    break;
                 }
             }
         }
-
-        return sb.toString();
-    }
-
-    private int getDistance(int currIndex, int number) {
-        currIndex = (currIndex == 0) ? 11 : currIndex;
-        number = (number == 0) ? 11 : number;
-
-        int currX = (currIndex - 1) / 3;
-        int currY = (currIndex - 1) % 3;
-
-        int numX = (number - 1) / 3;
-        int numY = 1;
-
-        return Math.abs(currX - numX) + Math.abs(currY - numY);
+        return answer;
     }
 }
 
