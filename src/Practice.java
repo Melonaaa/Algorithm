@@ -19,6 +19,7 @@ public class Practice {
         String[] answer = null;
 
         String[][] data = new String[record.length][3];
+        HashMap<String, String> userInfo = new HashMap<>();
 
         for (int nIndex = 0; nIndex < record.length; nIndex++) {
             String[] raw = record[nIndex].split(" ");
@@ -30,13 +31,12 @@ public class Practice {
                 data[nIndex][0] = raw[0];
                 data[nIndex][1] = raw[1];
                 data[nIndex][2] = raw[2];
-
-                for(int nnIndex = 0; nnIndex < data.length; nnIndex++){
-                    if( data[nnIndex][1] != null && data[nnIndex][1].equals(raw[1])){
-                        data[nnIndex][2] = raw[2];
-                    }
-                }
+                userInfo.put(raw[1], raw[2]);
             }
+        }
+
+        for (int nIndex = 0; nIndex < data.length; nIndex++) {
+            data[nIndex][2] = userInfo.get(data[nIndex][1]);
         }
 
         ArrayList<String> result = new ArrayList<>();
