@@ -5,42 +5,51 @@ public class Practice {
     public static void main(String[] args) {
         Practice p = new Practice();
 
-//      "aabbaccc" 7
-        String s = "ababcdcdababcdcd";
-        System.out.println(p.solution(s));
+//      ["Enter uid1234 Muzi", "Enter uid4567 Prodo","Leave uid1234","Enter uid1234 Prodo","Change uid4567 Ryan"]	["Prodo님이 들어왔습니다.", "Ryan님이 들어왔습니다.", "Prodo님이 나갔습니다.", "Prodo님이 들어왔습니다."]
+        String[] record = {"Enter uid1234 Muzi", "Enter uid4567 Prodo", "Leave uid1234", "Enter uid1234 Prodo", "Change uid4567 Ryan"};
+
+        String[] result = p.solution(record);
+        for (String r : result) {
+            System.out.println(r);
+        }
+//        System.out.println(p.solution(record));
     }
 
-    public int solution(String s) {
-        int answer = s.length();
+    public String[] solution(String[] record) {
+        String[] answer = null;
 
-        for (int i = 1; i <= s.length() / 2; i++) {
-            int pos = 0;
-            int len = s.length();
+        String[][] data = new String[record.length][3];
 
-            for (; pos + i <= s.length(); ) {
-                String unit = s.substring(pos, pos + i);
-                pos += i;
+        for (int nIndex = 0; nIndex < record.length; nIndex++) {
+            String[] raw = record[nIndex].split(" ");
 
-                int cnt = 0;
-                for (; pos + i <= s.length(); ) {
-                    if (!unit.equals(s.substring(pos, pos + i))) break;
+            if (raw[0].equals("Leave")) {
+                data[nIndex][0] = raw[0];
+                data[nIndex][1] = raw[1];
+            } else {
+                data[nIndex][0] = raw[0];
+                data[nIndex][1] = raw[1];
+                data[nIndex][2] = raw[2];
 
-                    cnt++;
-                    pos += i;
-                }
-
-                if (cnt > 0) {
-                    len -= i * cnt;
-
-                    if (cnt < 9) len += 1;
-                    else if (cnt < 99) len += 2;
-                    else if (cnt < 999) len += 3;
-                    else len += 4;
+                for(int nnIndex = 0; nnIndex < data.length; nnIndex++){
+                    if( data[nnIndex][1] != null && data[nnIndex][1].equals(raw[1])){
+                        data[nnIndex][2] = raw[2];
+                    }
                 }
             }
-
-            answer = Math.min(answer, len);
         }
+
+        ArrayList<String> result = new ArrayList<>();
+        for(int nIndex = 0; nIndex < data.length; nIndex++){
+            if(data[nIndex][0].equals("Enter")){
+                result.add(data[nIndex][2] + "님이 들어왔습니다.");
+            }else if(data[nIndex][0].equals("Leave")){
+                result.add(data[nIndex][2] + "님이 나갔습니다.");
+            }
+        }
+
+        answer = new String[result.size()];
+        answer = result.toArray(answer);
 
         return answer;
     }
