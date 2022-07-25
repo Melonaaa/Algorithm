@@ -7,9 +7,9 @@ public class Practice {
         Practice p = new Practice();
 
 //        3 20 4 10
-        int price = 2;
+        int price = 3;
         int money = 20;
-        int count = 3;
+        int count = 4;
 
         int result = p.solution(price, money, count);
         System.out.println(result);
