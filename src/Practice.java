@@ -1,32 +1,28 @@
+import java.util.Arrays;
 
 public class Practice {
 
     public static void main(String[] args) {
         Practice p = new Practice();
 
-        int n = 2;
-        int m = 5;
+        int[] arr = {1,2,3,4,5,6};
+        int n = 4;
 
-        int[] result = p.solution(n, m);
+        int result = p.solution(arr, n);
 
-        for (int i = 0; i < result.length; i++) {
-            System.out.print(result[i] + " ");
-        }
-        System.out.println();
-//        System.out.println(result);
+//        for (int i = 0; i < result.length; i++) {
+//            System.out.print(result[i] + " ");
+//        }
+//        System.out.println();
+        System.out.println(result);
     }
 
-    public int[] solution(int n, int m) {
-        int gcm = 1;
-        int lcm = 0;
-        for (int i = 1; i <= n; i++) {
-            if(n % i == 0 && m % i == 0) gcm = i;
-        }
+    public int solution(int[] arr, int n) {
+        int answer = 0;
 
-        lcm = n * m / gcm;
+        Arrays.sort(arr);
+//        int start =
 
-        int[] answer = {gcm, lcm};
-
-        return answer;
+        return  answer;
     }
 }
