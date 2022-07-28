@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class Practice {
 
@@ -23,24 +24,23 @@ public class Practice {
 
         isVisited = new boolean[nums.length];
 
-        dfs(0, 0,nums);
+        dfs(0, 0,0,nums);
 
         answer = cnt;
 
         return answer;
     }
 
-    private void dfs(int depth, int sum, int[] nums){
+    private void dfs(int depth, int start, int sum, int[] nums){
         if(depth == 3){
-            System.out.println(sum);
             if(isPrime(sum)) cnt++;
             return;
         }
 
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = start; i < nums.length; i++) {
             if(!isVisited[i]){
                 isVisited[i] = true;
-                dfs(depth + 1, sum+nums[i], nums);
+                dfs(depth + 1, i+1,sum+nums[i], nums);
                 isVisited[i] = false;
             }
         }
