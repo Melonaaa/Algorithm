@@ -5,9 +5,9 @@ public class Practice {
     public static void main(String[] args) {
         Practice p = new Practice();
 
-        int k = 4200;
+        int n = 4;
 
-        int result = p.solution(k);
+        String result = p.solution(n);
 
 //        for (int i = 0; i < result.length; i++) {
 //            System.out.print(result[i] + " ");
@@ -16,22 +16,15 @@ public class Practice {
         System.out.println(result);
     }
 
-    public int solution(int k) {
-        int answer = 0;
+    public String solution(int n) {
+        String answer = "";
 
-        int[] coins = {1, 5, 10, 50, 100, 500};
+        StringBuilder sb = new StringBuilder();
 
-        for (int nIndex = 0; nIndex < coins.length; nIndex++) {
-            int coin = coins[coins.length - (1 + nIndex)];
 
-            if(coin > k) continue;
-            else{
-                answer += k / coin;
-                k %= coin;
-            }
+        String[] strNumbers = {"4", "1", "2"};
 
-            if(k == 0) break;
-        }
+
         return answer;
     }
 }
